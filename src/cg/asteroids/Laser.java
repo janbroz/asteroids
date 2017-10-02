@@ -66,17 +66,25 @@ public class Laser {
         boolean crashed = false;
         for(Asteroid ast : asteroids){
             crashed = ast.transformedAsteroid.collision.CheckCollision(transformedLaser.collision.tx0y0);
-            if(crashed)
+            if(crashed){
                 ast.alive = false;
+                alive =false;
+            }
             crashed = ast.transformedAsteroid.collision.CheckCollision(transformedLaser.collision.tx0y1);
-            if(crashed)
+            if(crashed){
                 ast.alive = false;
+                alive =false;
+            }
             crashed = ast.transformedAsteroid.collision.CheckCollision(transformedLaser.collision.tx1y0);
-            if(crashed)
+            if(crashed){
                 ast.alive = false;
+                alive =false;
+            }
             crashed = ast.transformedAsteroid.collision.CheckCollision(transformedLaser.collision.tx1y1);
-            if(crashed)
+            if(crashed){
                 ast.alive = false;
+                alive =false;
+            }
             /*
             crashed = transformedLaser.collision.CheckCollision(ast.transformedAsteroid.collision.tx0y0);
             if (crashed){ 

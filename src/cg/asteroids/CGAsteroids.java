@@ -58,7 +58,7 @@ public class CGAsteroids extends JPanel implements KeyListener{
     
     ArrayList<Asteroid> asteroids;
     
-    float maxAsteroids = 2;
+    float maxAsteroids = 5;
     float currentAsteroids = 0;
     int score = 0;
     

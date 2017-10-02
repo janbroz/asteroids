@@ -149,12 +149,12 @@ public class Spaceship {
     
     void UpdateRotation(){
         if (turningLeft) {
-            Rotation rot = new Rotation(0.05, 0);
+            Rotation rot = new Rotation(0.03, 0);
             currentTransformation = Matrix4x4.times(currentTransformation, rot);
             //System.out.println("Liberal"); 
         }
         if (turningRight) {
-            Rotation rot = new Rotation(-0.05, 0);
+            Rotation rot = new Rotation(-0.03, 0);
             currentTransformation = Matrix4x4.times(currentTransformation, rot);
             //System.out.println("Conservators"); 
         }
@@ -188,7 +188,7 @@ public class Spaceship {
         while(l_iter.hasNext()){
             Laser m_laser = l_iter.next();
             m_laser.TickLaser();
-            if (m_laser.currentTtl >= m_laser.ttl) {
+            if (m_laser.currentTtl >= m_laser.ttl || !m_laser.alive) {
                 l_iter.remove();
             }
         }
