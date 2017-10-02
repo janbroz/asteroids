@@ -28,6 +28,9 @@ public class Spaceship {
     PolygonObject laser;
     PolygonObject transformedLaser;
     
+    PolygonObject exploding;
+    PolygonObject transformedExploding;
+    
     PolygonObject collisionBox;
     PolygonObject transformedCB;
     
@@ -62,6 +65,7 @@ public class Spaceship {
         ship = new PolygonObject();
         trail = new PolygonObject();
         laser = new PolygonObject();
+        exploding = new PolygonObject();
         lasers = new ArrayList<>();
         accelerating = false;
         firingLasers = false;
@@ -98,6 +102,37 @@ public class Spaceship {
         Edge edgeL = new Edge(vertexArrayL[0], vertexArrayL[1]);
         laser.addEdge(edgeL);
         
+        // Explosion creation
+        Vector4[] vertexArrayE = new Vector4[12];
+        vertexArrayE[0] = new Vector4(-10, 10, 0);
+        vertexArrayE[1] = new Vector4(-20, 20, 0);
+        vertexArrayE[2] = new Vector4(-10, -8, 0);
+        vertexArrayE[3] = new Vector4(-15, -17, 0);
+        vertexArrayE[4] = new Vector4(10, 8, 0);
+        vertexArrayE[5] = new Vector4(17, 23, 0);
+        vertexArrayE[6] = new Vector4(10, -8, 0);
+        vertexArrayE[7] = new Vector4(17, -23, 0);
+        vertexArrayE[8] = new Vector4(-4, 4, 0);
+        vertexArrayE[9] = new Vector4(-6, -2, 0);
+        vertexArrayE[10] = new Vector4(5, 7, 0);
+        vertexArrayE[11] = new Vector4(4, -4, 0);
+        Edge edgeE = new Edge(vertexArrayE[0], vertexArrayE[1]);
+        Edge edgeE2 = new Edge(vertexArrayE[2], vertexArrayE[3]);
+        Edge edgeE3 = new Edge(vertexArrayE[4], vertexArrayE[5]);
+        Edge edgeE4 = new Edge(vertexArrayE[6], vertexArrayE[7]);
+        Edge edgeE5 = new Edge(vertexArrayE[8], vertexArrayE[9]);
+        Edge edgeE6 = new Edge(vertexArrayE[8], vertexArrayE[10]);
+        Edge edgeE7 = new Edge(vertexArrayE[10], vertexArrayE[11]);
+        Edge edgeE8 = new Edge(vertexArrayE[9], vertexArrayE[11]);
+        exploding.addEdge(edgeE);
+        exploding.addEdge(edgeE2);
+        exploding.addEdge(edgeE3);
+        exploding.addEdge(edgeE4);
+        exploding.addEdge(edgeE5);
+        exploding.addEdge(edgeE6);
+        exploding.addEdge(edgeE7);
+        exploding.addEdge(edgeE8);
+        
         Translation trans = new Translation(0, 0, 0);
         currentTransformation = Matrix4x4.times(currentTransformation, trans);
         transformedShip = PolygonObject.transformObject(ship, currentTransformation);
@@ -106,17 +141,23 @@ public class Spaceship {
     }
 
     public void DrawShip(CGAsteroids ast){
-        if (accelerating) {
-            transformedShip.drawObject(ast);
-            ast.g2d.setColor(Color.red);
-            transformedTrail.drawObject(ast);
+        if (alive) {
+            if (accelerating) {
+                transformedShip.drawObject(ast);
+                ast.g2d.setColor(Color.red);
+                transformedTrail.drawObject(ast);
+            }else{
+                transformedShip.drawObject(ast);
+            }
+            if (firingLasers) {
+                ast.g2d.setColor(Color.green);
+                transformedLaser.drawObject(ast);
+            }
         }else{
-            transformedShip.drawObject(ast);
+            ast.g2d.setColor(Color.red);
+            transformedExploding.drawObject(ast);
         }
-        if (firingLasers) {
-            ast.g2d.setColor(Color.green);
-            transformedLaser.drawObject(ast);
-        }
+        
         DrawLasers(ast);
     }
     
@@ -135,6 +176,7 @@ public class Spaceship {
         transformedShip = PolygonObject.transformObject(ship, currentTransformation);
         transformedTrail = PolygonObject.transformObject(trail, currentTransformation);
         transformedLaser = PolygonObject.transformObject(laser, currentTransformation);
+        transformedExploding = PolygonObject.transformObject(exploding, currentTransformation);
         //System.out.println("I'm a leaf on the wind"); 
     }
     

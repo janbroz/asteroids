@@ -44,8 +44,8 @@ public class CGAsteroids extends JPanel implements KeyListener{
      * @param args the command line arguments
      */
     
-    public static int FRAME_WIDTH = 800;
-    public static int FRAME_HEIGHT = 600;
+    public static int FRAME_WIDTH = 1600;
+    public static int FRAME_HEIGHT = 900;
     
     public static int AXIS_SIZE = 20;
     
@@ -58,7 +58,7 @@ public class CGAsteroids extends JPanel implements KeyListener{
     
     ArrayList<Asteroid> asteroids;
     
-    float maxAsteroids = 5;
+    float maxAsteroids = 20;
     float currentAsteroids = 0;
     int score = 0;
     
@@ -106,9 +106,10 @@ public class CGAsteroids extends JPanel implements KeyListener{
         // Draw the object
         //transformedObject.drawObject(this);
         //po.drawObject(this);
-        if (ship.alive) {
-            ship.DrawShip(this);
-        }
+        ship.DrawShip(this);
+        //if (ship.alive) {
+        //    ship.DrawShip(this);
+        //}
         
         //ship.po.drawObject(this);
         Iterator<Asteroid> a_iter = asteroids.iterator();
